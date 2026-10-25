@@ -1,0 +1,35 @@
+# Experimento: selecao de testes do test-graph-selector no Keycloak.
+# Roda em modo --dry-run: so seleciona e explica, sem executar os testes.
+name: Test Graph (selecao)
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  selecao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # a Action compara a base do PR com o head
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Selecionar testes
+        id: sel
+        uses: Pedronovaesdev/test-graph@v1.1.0
+        with:
+          lang: java
+          dry-run: "true"
+      - name: Resultado
+        run: |
+          {
+            echo "### Resultado da selecao"
+            echo "- modo: ${{ steps.sel.outputs.mode }}"
+            echo "- selecionados: ${{ steps.sel.outputs.selected }} de ${{ steps.sel.outputs.total }}"
+          } | tee -a "$GITHUB_STEP_SUMMARY"
