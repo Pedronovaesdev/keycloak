@@ -36,7 +36,6 @@ import org.jboss.logging.Logger;
  * @author <a href="mailto:sthorger@redhat.com">Stian Thorgersen</a>
  * @author Vlastimil Elias (velias at redhat dot com)
  */
-// Alteracao so de comentario, para exercitar a selecao de testes do test-graph.
 public class ProfileBean {
 
     private static final Logger logger = Logger.getLogger(ProfileBean.class);
